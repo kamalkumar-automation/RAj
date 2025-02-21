@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day Book Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.3/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: #f5f5dc;
+            color: #000;
+        }
+        input, select, button {
+            font-family: 'Merriweather', serif;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen justify-between">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-4 text-center">Jai Shree Ramji</h1>
+        <form id="dayBookForm" class="bg-white p-6 rounded shadow-md mb-8">
+            <div class="mb-4">
+                <label for="date" class="block mb-2">Date</label>
+                <input type="date" id="date" class="block w-full border rounded px-3 py-2" required>
+            </div>
+            <div class="mb-4 flex gap-4 justify-center">
+              <button type="button" data-activity="Recharge" 
+                      class="activity-btn bg-blue-500 text-white px-4 py-2 rounded">
+                Recharge
+              </button>
+              <button type="button" data-activity="Sale"
+                      class="activity-btn bg-gray-200 px-4 py-2 rounded">
+                Sale
+              </button>
+              <button type="button" data-activity="Service" 
+                      class="activity-btn bg-gray-200 px-4 py-2 rounded">
+                Service
+              </button>
+              <button type="button" data-activity="Expense" 
+                      class="activity-btn bg-gray-200 px-4 py-2 rounded">
+                Expense
+              </button>
+              <button type="button" data-activity="Bank Deposit"
+                      class="activity-btn bg-gray-200 px-4 py-2 rounded">
+                Bank Deposit
+              </button>
+            </div>
+            <div id="rechargeSection" style="display:block">
+              <div class="mb-4">
+                <label for="rechargeAmount" class="block mb-2">Recharge Amount</label>
+                <input type="number" id="rechargeAmount" class="block w-full border rounded px-3 py-2" required min="0">
+              </div>
+              <div class="mb-4">
+                <label for="number" class="block mb-2">Mobile Number</label>
+                <input type="text" id="number" class="block w-full border rounded px-3 py-2" 
+                       pattern="[0-9]{10}" title="10 digit mobile number" required>
+              </div>
+              <div class="mb-4">
+                <label for="company" class="block mb-2">Company</label>
+                <select id="company" class="block w-full border rounded px-3 py-2" required>
+                  <option value="">Select Company</option>
+                  <option value="Jio">Jio</option>
+                  <option value="Airtel">Airtel</option>
+                  <option value="Vi">Vi</option>
+                  <option value="BSNL">BSNL</option>
+                </select>
+              </div>
+            </div>
+            <div id="saleSection" style="display:none">
+              <div class="mb-4">
+                <label for="productName" class="block mb-2">Product Name</label>
+                <input type="text" id="productName" class="block w-full border rounded px-3 py-2" required>
+              </div>
+              <div class="mb-4">
+                <label for="saleAmount" class="block mb-2">Sale Amount</label>
+                <input type="number" id="saleAmount" class="block w-full border rounded px-3 py-2" required min="0">
+              </div>
+              <div class="mb-4">
+                <label for="saleWarranty" class="block mb-2">Warranty</label>
+                <select id="saleWarranty" class="block w-full border rounded px-3 py-2" required>
+                  <option value="With Warranty">With Warranty</option>
+                  <option value="Without Warranty">Without Warranty</option>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label for="customerName" class="block mb-2">Customer Name</label>
+                <input type="text" id="customerName" class="block w-full border rounded px-3 py-2" required>
+              </div>
+              <div class="mb-4">
+                <label for="saleCustomerNumber" class="block mb-2">Customer Number</label>
+                <input type="text" id="saleCustomerNumber" class="block w-full border rounded px-3 py-2" 
+                       pattern="[0-9]{10}" title="10 digit mobile number" required>
+              </div>
+            </div>
+            <div id="serviceSection" style="display:none">
+              <div class="mb-4">
+                <label for="serviceType" class="block mb-2">Service Type</label>
+                <select id="serviceType" class="block w-full border rounded px-3 py-2" required>
+                  <option value="Repair">Repair</option>
+                  <option value="Maintenance">Maintenance</option>
+                  <option value="Installation">Installation</option>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label for="serviceAmount" class="block mb-2">Service Amount</label>
+                <input type="number" id="serviceAmount" class="block w-full border rounded px-3 py-2" required min="0">
+              </div>
+              <div class="mb-4">
+                <label for="warrantyStatus" class="block mb-2">Warranty Status</label>
+                <select id="warrantyStatus" class="block w-full border rounded px-3 py-2" required>
+                  <option value="Under Warranty">Under Warranty</option>
+                  <option value="Paid Service">Paid Service</option>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label for="serviceCustomerName" class="block mb-2">Customer Name</label>
+                <input type="text" id="serviceCustomerName" class="block w-full border rounded px-3 py-2" required>
+              </div>
+              <div class="mb-4">
+                <label for="customerNumber" class="block mb-2">Customer Number</label>
+                <input type="text" id="customerNumber" class="block w-full border rounded px-3 py-2" 
+                       pattern="[0-9]{10}" title="10 digit mobile number" required>
+              </div>
+            </div>
+            <div id="expenseSection" style="display:none">
+              <div class="mb-4">
+                <label for="expenseType" class="block mb-2">Expense Type</label>
+                <select id="expenseType" class="block w-full border rounded px-3 py-2" required>
+                  <option value="Rent">Rent</option>
+                  <option value="Utilities">Utilities</option>
+                  <option value="Supplies">Supplies</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label for="expenseAmount" class="block mb-2">Amount</label>
+                <input type="number" id="expenseAmount" class="block w-full border rounded px-3 py-2" required min="0">
+              </div>
+              <div class="mb-4">
+                <label for="expenseDescription" class="block mb-2">Description</label>
+                <textarea id="expenseDescription" class="block w-full border rounded px-3 py-2" required></textarea>
+              </div>
+            </div>
+            <div id="bankDepositSection" style="display:none">
+              <div class="mb-4">
+                <label for="depositAmount" class="block mb-2">Amount</label>
+                <input type="number" id="depositAmount" class="block w-full border rounded px-3 py-2" required min="0">
+              </div>
+              <div class="mb-4">
+                <label for="bankName" class="block mb-2">Bank Name</label>
+                <input type="text" id="bankName" class="block w-full border rounded px-3 py-2" required>
+              </div>
+              <div class="mb-4">
+                <label for="referenceNumber" class="block mb-2">Reference Number</label>
+                <input type="text" id="referenceNumber" class="block w-full border rounded px-3 py-2" required>
+              </div>
+            </div>
+            <div class="flex justify-center">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                    Capture the Day!
+                </button>
+                <button type="button" onclick="localStorage.clear(); displayEntries()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-4">
+                    Clear All Data
+                </button>
+                <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded ml-4" id="excel-download">
+                  Download Excel
+                </button>
+            </div>
+        </form>
+        <div id="output" class="bg-gray-100 p-4 rounded shadow-md"></div>
+    </div>
+    <footer class="bg-white p-4 mt-8 text-center">
+        <a href="https://www.youtube.com/@Raj_bhanwar" target="_blank" class="text-blue-500 hover:underline">Made with ❤️kp8058822200</a>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        let entries = JSON.parse(localStorage.getItem('daybookEntries')) || [];
+
+        document.getElementById('dayBookForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const date = document.getElementById('date').value;
+            const activityType = document.querySelector('.activity-btn.bg-blue-500').getAttribute('data-activity');
+            let entry = { date, activityType };
+
+            // Collect data based on activity type
+            if (activityType === 'Recharge') {
+                entry = {
+                    ...entry,
+                    rechargeAmount: document.getElementById('rechargeAmount').value,
+                    number: document.getElementById('number').value,
+                    company: document.getElementById('company').value
+                };
+            } else if (activityType === 'Sale') {
+                entry = {
+                    ...entry,
+                    productName: document.getElementById('productName').value,
+                    saleAmount: document.getElementById('saleAmount').value,
+                    saleWarranty: document.getElementById('saleWarranty').value,
+                    customerName: document.getElementById('customerName').value,
+                    saleCustomerNumber: document.getElementById('saleCustomerNumber').value
+                };
+            } else if (activityType === 'Service') {
+                entry = {
+                    ...entry,
+                    serviceType: document.getElementById('serviceType').value,
+                    serviceAmount: document.getElementById('serviceAmount').value,
+                    warrantyStatus: document.getElementById('warrantyStatus').value,
+                    serviceCustomerName: document.getElementById('serviceCustomerName').value,
+                    customerNumber: document.getElementById('customerNumber').value
+                };
+            } else if (activityType === 'Expense') {
+                entry = {
+                    ...entry,
+                    expenseType: document.getElementById('expenseType').value,
+                    expenseAmount: document.getElementById('expenseAmount').value,
+                    expenseDescription: document.getElementById('expenseDescription').value
+                };
+            } else if (activityType === 'Bank Deposit') {
+                entry = {
+                    ...entry,
+                    depositAmount: document.getElementById('depositAmount').value,
+                    bankName: document.getElementById('bankName').value,
+                    referenceNumber: document.getElementById('referenceNumber').value
+                };
+            }
+
+            saveEntry(entry);
+            this.reset();
+            // Reset to default view (Recharge)
+            document.querySelector('[data-activity="Recharge"]').click();
+        });
+
+        document.querySelectorAll('.activity-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update button styles
+                document.querySelectorAll('.activity-btn').forEach(btn => {
+                    btn.classList.remove('bg-blue-500', 'text-white');
+                    btn.classList.add('bg-gray-200');
+                });
+                this.classList.remove('bg-gray-200');
+                this.classList.add('bg-blue-500', 'text-white');
+
+                // Show/hide appropriate sections
+                const activityType = this.getAttribute('data-activity');
+                document.getElementById('rechargeSection').style.display = activityType === 'Recharge' ? 'block' : 'none';
+                document.getElementById('saleSection').style.display = activityType === 'Sale' ? 'block' : 'none';
+                document.getElementById('serviceSection').style.display = activityType === 'Service' ? 'block' : 'none';
+                document.getElementById('expenseSection').style.display = activityType === 'Expense' ? 'block' : 'none';
+                document.getElementById('bankDepositSection').style.display = activityType === 'Bank Deposit' ? 'block' : 'none';
+            });
+        });
+
+        function saveEntry(entry) {
+            entries.push(entry);
+            localStorage.setItem('daybookEntries', JSON.stringify(entries));
+            displayEntries();
+        }
+
+        function displayEntries() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<h2 class="text-xl font-bold mb-4">Recent Entries</h2>';
+            
+            if (entries.length === 0) {
+                output.innerHTML += '<p class="text-gray-500">No entries yet</p>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.className = 'w-full border-collapse border border-gray-300';
+            
+            // Create table header
+            const thead = document.createElement('thead');
+            thead.innerHTML = `
+                <tr class="bg-gray-100">
+                    <th class="border border-gray-300 px-4 py-2">Date</th>
+                    <th class="border border-gray-300 px-4 py-2">Type</th>
+                    <th class="border border-gray-300 px-4 py-2">Details</th>
+                    <th class="border border-gray-300 px-4 py-2">Amount</th>
+                </tr>
+            `;
+            table.appendChild(thead);
+
+            // Create table body
+            const tbody = document.createElement('tbody');
+            entries.slice().reverse().forEach(entry => {
+                const tr = document.createElement('tr');
+                let details = '';
+                let amount = '';
+
+                if (entry.activityType === 'Recharge') {
+                    details = `${entry.number} (${entry.company})`;
+                    amount = entry.rechargeAmount;
+                } else if (entry.activityType === 'Sale') {
+                    details = `${entry.productName} - ${entry.customerName} (${entry.saleCustomerNumber})`;
+                    amount = entry.saleAmount;
+                } else if (entry.activityType === 'Service') {
+                    details = `${entry.serviceType} - ${entry.serviceCustomerName} (${entry.customerNumber})`;
+                    amount = entry.serviceAmount;
+                } else if (entry.activityType === 'Expense') {
+                    details = `${entry.expenseType}: ${entry.expenseDescription}`;
+                    amount = -entry.expenseAmount;
+                } else if (entry.activityType === 'Bank Deposit') {
+                    details = `${entry.bankName} (${entry.referenceNumber})`;
+                    amount = entry.depositAmount;
+                }
+
+                tr.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-2">${entry.date}</td>
+                    <td class="border border-gray-300 px-4 py-2">${entry.activityType}</td>
+                    <td class="border border-gray-300 px-4 py-2">${details}</td>
+                    <td class="border border-gray-300 px-4 py-2">₹${amount}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+            output.appendChild(table);
+        }
+
+        function generateExcel() {
+          const workbook = XLSX.utils.book_new();
+          const data = [];
+          const monthSheets = {};
+
+          // Organize entries by month
+          entries.forEach(entry => {
+            const date = new Date(entry.date);
+            const monthYear = `${date.getMonth()+1}-${date.getFullYear()}`;
+            if (!monthSheets[monthYear]) {
+              monthSheets[monthYear] = [];
+            }
+            monthSheets[monthYear].push(entry);
+          });
+
+          // Create sheets for each month
+          Object.entries(monthSheets).forEach(([monthYear, monthEntries]) => {
+            const sheetData = monthEntries.map(entry => {
+              let details = '';
+              let amount = 0;
+
+              switch(entry.activityType) {
+                case 'Recharge':
+                  details = `${entry.number} (${entry.company})`;
+                  amount = entry.rechargeAmount;
+                  break;
+                case 'Sale':
+                  details = `${entry.productName} - ${entry.customerName}`;
+                  amount = entry.saleAmount;
+                  break;
+                case 'Service':
+                  details = `${entry.serviceType} - ${entry.serviceCustomerName}`;
+                  amount = entry.serviceAmount;
+                  break;
+                case 'Expense':
+                  details = `${entry.expenseType}: ${entry.expenseDescription}`;
+                  amount = -entry.expenseAmount;
+                  break;
+                case 'Bank Deposit':
+                  details = `${entry.bankName} (${entry.referenceNumber})`;
+                  amount = entry.depositAmount;
+                  break;
+              }
+
+              return [
+                entry.date,
+                entry.activityType,
+                details,
+                amount
+              ];
+            });
+
+            // Add headers
+            sheetData.unshift(['Date', 'Type', 'Details', 'Amount']);
+            const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
+            XLSX.utils.book_append_sheet(workbook, worksheet, monthYear);
+          });
+
+          // Download the file
+          XLSX.writeFile(workbook, 'DayBook.xlsx');
+        }
+
+        document.getElementById('excel-download').addEventListener('click', generateExcel);
+
+        // Display existing entries when page loads
+        displayEntries();
+    </script>
+</body>
+</html>
